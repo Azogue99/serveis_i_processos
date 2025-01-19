@@ -1,8 +1,6 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class Utils {
 
@@ -28,4 +26,15 @@ public class Utils {
     }
 
 
+    // Mostrar el contingut d'un fitxer en format hexadecimal (per al fitxer xifrat)
+    public static void displayFileContentInHex(String filePath) throws IOException {
+        FileInputStream file = new FileInputStream(filePath);
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = file.read(buffer)) != -1) {
+            String hex = Utils.bytesToHex(buffer);
+            System.out.println(hex);  // Mostrar el contingut xifrat en hexadecimal
+        }
+        file.close();
+    }
 }
