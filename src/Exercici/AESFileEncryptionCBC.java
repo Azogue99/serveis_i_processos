@@ -15,7 +15,7 @@ public class AESFileEncryptionCBC {
             // Generar la clau AES
             SecretKey aesKey = AESUtils.generateAESKey(128);
 
-            // Mostrar el contingut de 'entrada.txt' abans de xifrar
+            // Mostrar el contingut 'entrada.txt' abans de xifrar
             System.out.println("Contingut original del fitxer (entrada.txt):");
             displayFileContent("entrada.txt");
 
