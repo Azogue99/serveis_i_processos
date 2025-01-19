@@ -1,26 +1,34 @@
 package Exercici;
 
 import utils.RSAUtils;
+import utils.Utils;
+
 import java.security.*;
+
+import static utils.Utils.readFileContent;
 
 public class FirmaDigital {
 
     public static void run() {
         try {
-            // Generar el parell de claus RSA
             KeyPair keyPair = RSAUtils.generateRSAKeyPair(2048);
 
-            // Dades a signar
-            String document = "Document important";
+            // Pas 1: Llegir el contingut del fitxer document.txt
+            System.out.println("\nPas 1: Llegir el contingut del fitxer document.txt:");
+            String document = readFileContent("document.txt");
+            System.out.println("Contingut del document: " + document);
+
+            // Pas 2: Generar la firma digital amb la clau privada
+            System.out.println("\nPas 2: Generar la firma digital amb la clau privada RSA.");
             byte[] data = document.getBytes();
-
-            // Crear la firma digital amb la clau privada
             byte[] signature = signData(data, keyPair.getPrivate());
+            System.out.println("Firma generada (en hexadecimal): " + Utils.bytesToHex(signature));
 
-            // Verificar la firma amb la clau pública
+            // Pas 3: Verificar la firma amb la clau pública
+            System.out.println("\nPas 3: Verificar la firma amb la clau pública RSA.");
             boolean isValid = validateSignature(data, signature, keyPair.getPublic());
+            System.out.println("La firma és vàlida? " + isValid);
 
-            System.out.println("Firma vàlida: " + isValid);
         } catch (Exception e) {
             e.printStackTrace();
         }

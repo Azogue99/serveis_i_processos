@@ -1,28 +1,36 @@
 package Exercici;
 
 import utils.AESUtils;
+import utils.Utils;
 import javax.crypto.SecretKey;
 
 public class AESPasswordEncryption {
 
     public static void run() {
         try {
+            // Definir la contrasenya comuna
             String password = "projecte2025";
 
-            // Generar una clau AES a partir de la contrasenya
+            // Pas 1: Generar una clau AES a partir de la contrasenya
+            System.out.println("Pas 1: Generar una clau AES a partir de la contrasenya '" + password + "'");
             SecretKey aesKey = AESUtils.generateAESKeyFromPassword(password, 128);
+            System.out.println("Clau AES generada: " + Utils.bytesToHex(aesKey.getEncoded()));
 
-            // Xifrar el missatge
+            // Pas 2: Xifrar el missatge
             String message = "Document confidencial";
+            System.out.println("\nPas 2: Xifrar el missatge.");
             byte[] encryptedMessage = AESUtils.encryptWithAES(aesKey, message.getBytes());
+            System.out.println("Missatge original: " + message);
+            System.out.println("Missatge xifrat: " + Utils.bytesToHex(encryptedMessage));
 
-            // Desxifrar el missatge
+            // Pas 3: Desxifrar el missatge
+            System.out.println("\nPas 3: Desxifrar el missatge.");
             byte[] decryptedMessage = AESUtils.decryptWithAES(aesKey, encryptedMessage);
             String originalMessage = new String(decryptedMessage);
 
-            System.out.println("Missatge original: " + message);
-            System.out.println("Missatge xifrat: " + encryptedMessage);
+            // Mostrar els resultats
             System.out.println("Missatge desxifrat: " + originalMessage);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
